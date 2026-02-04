@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[À compléter : Nom Prénom] — Site Académique</title>
+    <meta name="description" content="[À compléter : Description du profil académique]">
+    
+    <style>
+        /* ===== RESET & BASE ===== */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-bg: #fefefe;
+            --color-text: #1a1a1a;
+            --color-text-light: #666666;
+            --color-accent: #2c3e50;
+            --color-border: #e5e5e5;
+            --color-hover: #f5f5f5;
+            --font-serif: Georgia, "Times New Roman", serif;
+            --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            --max-width: 720px;
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 2rem;
+            --spacing-lg: 4rem;
+            --spacing-xl: 6rem;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            font-size: 16px;
+            line-height: 1.7;
+            color: var(--color-text);
+            background-color: var(--color-bg);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ===== NAVIGATION ===== */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(254, 254, 254, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--color-border);
+            z-index: 1000;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-md);
+            list-style: none;
+            padding: var(--spacing-sm) var(--spacing-md);
+            max-width: var(--max-width);
+            margin: 0 auto;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--color-text-light);
+            font-size: 0.9rem;
+            font-weight: 400;
+            letter-spacing: 0.02em;
+            transition: color 0.2s ease;
+            padding: 0.25rem 0;
+        }
+
+        nav a:hover {
+            color: var(--color-text);
+        }
+
+        nav a.active {
+            color: var(--color-text);
+            border-bottom: 1px solid var(--color-text);
+        }
+
+        /* ===== MAIN LAYOUT ===== */
+        main {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: var(--spacing-xl) var(--spacing-md) var(--spacing-lg);
+        }
+
+        section {
+            padding: var(--spacing-xl) 0;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        section:last-child {
+            border-bottom: none;
+        }
+
+        /* ===== TYPOGRAPHY ===== */
+        h1, h2, h3 {
+            font-family: var(--font-serif);
+            font-weight: 400;
+            line-height: 1.3;
+            color: var(--color-text);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            margin-bottom: var(--spacing-md);
+            color: var(--color-accent);
+        }
+
+        h3 {
+            font-size: 1.1rem;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        p {
+            margin-bottom: var(--spacing-sm);
+            color: var(--color-text-light);
+        }
+
+        a {
+            color: var(--color-accent);
+            text-decoration: underline;
+            text-underline-offset: 0.15em;
+        }
+
+        a:hover {
+            text-decoration: none;
+        }
+
+        /* ===== HOME SECTION ===== */
+        #home {
+            min-height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-top: var(--spacing-lg);
+        }
+
+        #home h1 {
+            font-size: 3rem;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .subtitle {
+            font-family: var(--font-serif);
+            font-size: 1.25rem;
+            color: var(--color-text-light);
+            font-style: italic;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .affiliation {
+            font-size: 0.95rem;
+            color: var(--color-text-light);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .intro {
+            margin-top: var(--spacing-md);
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        /* ===== RESEARCH SECTION ===== */
+        .publication {
+            margin-bottom: var(--spacing-md);
+            padding-bottom: var(--spacing-md);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .publication:last-child {
+            border-bottom: none;
+        }
+
+        .publication-title {
+            font-family: var(--font-serif);
+            font-size: 1.05rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .publication-authors {
+            font-size: 0.9rem;
+            color: var(--color-text-light);
+            margin-bottom: 0.25rem;
+        }
+
+        .publication-venue {
+            font-size: 0.85rem;
+            color: var(--color-text-light);
+            font-style: italic;
+        }
+
+        .publication-links {
+            margin-top: var(--spacing-xs);
+        }
+
+        .publication-links a {
+            font-size: 0.85rem;
+            margin-right: var(--spacing-sm);
+        }
+
+        /* ===== TALKS SECTION ===== */
+        .talk {
+            margin-bottom: var(--spacing-md);
+            padding-bottom: var(--spacing-md);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .talk:last-child {
+            border-bottom: none;
+        }
+
+        .talk-title {
+            font-family: var(--font-serif);
+            font-size: 1.05rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .talk-venue {
+            font-size: 0.9rem;
+            color: var(--color-text-light);
+        }
+
+        .talk-date {
+            font-size: 0.85rem;
+            color: var(--color-text-light);
+            font-style: italic;
+        }
+
+        /* ===== CONSULTING SECTION ===== */
+        .service {
+            margin-bottom: var(--spacing-md);
+        }
+
+        .service h3 {
+            margin-bottom: var(--spacing-xs);
+        }
+
+        /* ===== CONTACT SECTION ===== */
+        .contact-info {
+            margin-bottom: var(--spacing-md);
+        }
+
+        .contact-item {
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .contact-label {
+            font-size: 0.85rem;
+            color: var(--color-text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.25rem;
+        }
+
+        .contact-value {
+            font-size: 1rem;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            text-align: center;
+            padding: var(--spacing-lg) var(--spacing-md);
+            border-top: 1px solid var(--color-border);
+        }
+
+        footer p {
+            font-size: 0.85rem;
+            color: var(--color-text-light);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 600px) {
+            nav ul {
+                gap: var(--spacing-sm);
+                flex-wrap: wrap;
+            }
+
+            nav a {
+                font-size: 0.85rem;
+            }
+
+            #home h1 {
+                font-size: 2rem;
+            }
+
+            h1 {
+                font-size: 1.75rem;
+            }
+
+            h2 {
+                font-size: 1.25rem;
+            }
+
+            main {
+                padding-top: var(--spacing-lg);
+            }
+        }
+
+        /* ===== UTILITY ===== */
+        .placeholder {
+            background: #fff3cd;
+            padding: 0.1em 0.3em;
+            border-radius: 3px;
+            font-family: monospace;
+            font-size: 0.9em;
+            color: #856404;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav role="navigation" aria-label="Navigation principale">
+        <ul>
+            <li><a href="#home" class="active">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#research">Research</a></li>
+            <li><a href="#talks">Talks</a></li>
+            <li><a href="#consulting">Consulting</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Home Section -->
+        <section id="home">
+            <h1>[À compléter : Prénom Nom]</h1>
+            <p class="subtitle">[À compléter : Titre académique — ex. Professeur en Économie]</p>
+            <p class="affiliation">[À compléter : Affiliation institutionnelle]</p>
+            <p class="affiliation">[À compléter : Ville, Pays]</p>
+            <div class="intro">
+                <p>[À compléter : Brève introduction de 2-3 phrases présentant vos domaines de recherche principaux et votre positionnement académique.]</p>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about">
+            <h2>About</h2>
+            <p>[À compléter : Biographie académique détaillée. Parcours éducatif, postes précédents, centres d'intérêt de recherche.]</p>
+            <p>[À compléter : Mentionnez les distinctions, bourses, ou reconnaissances importantes.]</p>
+            <h3 style="margin-top: 2rem;">Education</h3>
+            <p><strong>[À compléter : Année]</strong> — [À compléter : Doctorat/Master, Université]</p>
+            <p><strong>[À compléter : Année]</strong> — [À compléter : Master/Licence, Université]</p>
+        </section>
+
+        <!-- Research Section -->
+        <section id="research">
+            <h2>Research</h2>
+            <p>[À compléter : Brève description de votre programme de recherche et de vos intérêts actuels.]</p>
+            
+            <h3 style="margin-top: 2rem;">Publications</h3>
+            
+            <article class="publication">
+                <p class="publication-title">[À compléter : Titre de la publication]</p>
+                <p class="publication-authors">[À compléter : Auteurs]</p>
+                <p class="publication-venue">[À compléter : Revue/Conférence, Année]</p>
+                <div class="publication-links">
+                    <a href="#">[PDF]</a>
+                    <a href="#">[DOI]</a>
+                    <a href="#">[Code]</a>
+                </div>
+            </article>
+
+            <article class="publication">
+                <p class="publication-title">[À compléter : Titre de la publication]</p>
+                <p class="publication-authors">[À compléter : Auteurs]</p>
+                <p class="publication-venue">[À compléter : Revue/Conférence, Année]</p>
+                <div class="publication-links">
+                    <a href="#">[PDF]</a>
+                    <a href="#">[DOI]</a>
+                </div>
+            </article>
+
+            <h3 style="margin-top: 2rem;">Working Papers</h3>
+            
+            <article class="publication">
+                <p class="publication-title">[À compléter : Titre du working paper]</p>
+                <p class="publication-authors">[À compléter : Auteurs]</p>
+                <p class="publication-venue">[À compléter : Status — ex. Soumis, En préparation]</p>
+            </article>
+        </section>
+
+        <!-- Talks Section -->
+        <section id="talks">
+            <h2>Talks</h2>
+            
+            <article class="talk">
+                <p class="talk-title">[À compléter : Titre de la présentation]</p>
+                <p class="talk-venue">[À compléter : Nom du séminaire/conférence]</p>
+                <p class="talk-date">[À compléter : Mois Année — Ville, Pays]</p>
+            </article>
+
+            <article class="talk">
+                <p class="talk-title">[À compléter : Titre de la présentation]</p>
+                <p class="talk-venue">[À compléter : Nom du séminaire/conférence]</p>
+                <p class="talk-date">[À compléter : Mois Année — Ville, Pays]</p>
+            </article>
+        </section>
+
+        <!-- Consulting Section -->
+        <section id="consulting">
+            <h2>Consulting</h2>
+            <p>[À compléter : Description de vos services de conseil et expertise.]</p>
+            
+            <div class="service">
+                <h3>[À compléter : Domaine d'expertise 1]</h3>
+                <p>[À compléter : Description des services proposés dans ce domaine.]</p>
+            </div>
+
+            <div class="service">
+                <h3>[À compléter : Domaine d'expertise 2]</h3>
+                <p>[À compléter : Description des services proposés dans ce domaine.]</p>
+            </div>
+
+            <h3 style="margin-top: 2rem;">Clients & Collaborations</h3>
+            <p>[À compléter : Liste des institutions, organisations ou entreprises avec lesquelles vous avez collaboré.]</p>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact">
+            <h2>Contact</h2>
+            
+            <div class="contact-info">
+                <div class="contact-item">
+                    <p class="contact-label">Email</p>
+                    <p class="contact-value"><a href="mailto:[À compléter]">[À compléter : email@institution.fr]</a></p>
+                </div>
+                
+                <div class="contact-item">
+                    <p class="contact-label">Adresse</p>
+                    <p class="contact-value">
+                        [À compléter : Département/Faculté]<br>
+                        [À compléter : Université/Institution]<br>
+                        [À compléter : Adresse postale]<br>
+                        [À compléter : Code postal Ville, Pays]
+                    </p>
+                </div>
+
+                <div class="contact-item">
+                    <p class="contact-label">Profils</p>
+                    <p class="contact-value">
+                        <a href="#">Google Scholar</a> · 
+                        <a href="#">ORCID</a> · 
+                        <a href="#">LinkedIn</a> · 
+                        <a href="#">Twitter</a>
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; [À compléter : Année] [À compléter : Nom]. Tous droits réservés.</p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Navigation active state on scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('nav a');
+
+            function updateActiveLink() {
+                let current = '';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if (scrollY >= sectionTop - 100) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === '#' + current) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+
+            window.addEventListener('scroll', updateActiveLink);
+            updateActiveLink();
+
+            // Smooth scroll for anchor links
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+                    if (targetSection) {
+                        targetSection.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
